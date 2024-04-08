@@ -5,25 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ErickGym Web</title>
     <script src="index.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <main>
-      <header>
-        <h1>ErickWeb Dashboard</h1>
-      </header>
-      <section>
-        <h2>Novo Exercício</h2>
-        <form action="#">
-          <input id="cx-nome" type="text" autocomplete="off" placeholder="Nome...">
-          <input id="cx-descricao" type="text" placeholder="Descrição..">
-          <button id="btn-cadastrar">Cadastrar</button>
-        </form>
-      </section>
-      <section>
-        <h2>Exercícios Cadastrados</h2>
-        <ol id="lst-exercicios">
-        </ol>
-    </section>
-  </main>
-  </body>
+    <h1>ErickGym Dashboard</h1>
+
+    <form id="exercise-form" action="">
+        <h1>CADASTRAR</h1>
+        <div class="input-field">
+            <label for="cx-nome">Nome:</label>
+            <input id="cx-nome" type="text" placeholder="Nome.."> 
+        </div>
+        <div class="input-field">
+            <label for="cx-descricao">Descrição:</label>
+            <input id="cx-descricao" type="text" placeholder="Descrição..">
+        </div>
+        <div class="input-field">
+            <label for="cx-idade">Idade Mínima:</label>
+            <input id="cx-idade" type="text" placeholder="Idade Mínima..">
+        </div>
+        <div class="input-field">
+            <label for="ativo">Está Ativo ? <input id="ativo" type="checkbox"></label>
+            
+        </div>
+        <button id="btn-salvar">Salvar</button>
+    </form>
+
+    <h2>Lista de Exercícios Cadastrados</h2>
+    <ol id="lista-exercicio">
+        <li>gggggggggggggggg</li>
+        <li>fffffffffffff</li>
+        <li>dddddddd</li>
+        <li>dddddddd</li>
+        <li>ddddddddddd</li>
+    </ol>
+    <div class="footer">
+      © 2024 ErickGym. Todos os direitos reservados.
+    </div>
+</body>
+</body>
 </html>

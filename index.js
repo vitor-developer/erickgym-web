@@ -1,72 +1,48 @@
-API_URL = 'https://erickgym-gwwo.onrender.com/api/exercicios'
+const API_URL = 'https://erickgym-6822.onrender.com/api/exercicios';
 
-function main(){
-  
-  carregarExerciciosAPI()
-}
+async function salvar_exercicio(e){
+  e.preventDefault();
+  const cx_nome = document.getElementById('cx-nome');
+  const cx_descricao = document.getElementById('cx-descricao');
+  const nome = cx_nome.value;
+  const descricao = cx_descricao.value;
 
-async function carregarExerciciosAPI(){
-  // Fazer chamada API (GET /api/exercicios)
-  // URL: http://127.0.0.1:8000/api/exercicios
-  const response = await fetch(API_URL)
-  if (response.status === 200){
-    // mostrar os exercicios na html (DOM)
-    const exercicios = await response.json()
-    for (let exercicio of exercicios){
-      // criar e pendurar um item em ol
-      adicionarItemNaLista(exercicio)
-    }
-  }else{
-    alert('Requisição deu problema!')
-  }
-}
+  const dados = {nome, descricao};
 
-
-async function salvarClick(event){
-  event.preventDefault()
-  const cx_nome = document.getElementById('cx-nome')
-  const cx_descricao = document.getElementById('cx-descricao')
-  const nome = cx_nome.value
-  const descricao = cx_descricao.value
-
-  const dados = {nome, descricao}
-
-  const config = {
+  const init = {
     method: 'POST',
+    body: JSON.stringify(dados),
     headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dados)
-  }
+      "Content-Type": "application/json"
+    }
+  };
 
-  const response = await fetch(API_URL, config)
-  
+  const response = await fetch(API_URL, init);
+
   if (response.status === 201){
-    const exercicio = await response.json()
-    adicionarItemNaLista(exercicio)
-    alert('Exercício cadastrado com sucesso!')
-  }else{
-    alert('Error ao cadastrar exercício!')
+    alert('Exercício Cadastrado!');
+    cx_nome.value = '';
+    cx_nome.focus();
+    const exercicio = await response.json();
+    adicionar_exercicio_na_lista(exercicio);
+  } else {
+    alert('Erro ao salvar na API!');
+    console.log(response);
   }
-  
-
-  cx_nome.value = ''
-  cx_nome.focus()
 }
 
-
-function adicionarItemNaLista(exercicio){
-  const lista = document.getElementById('lst-exercicios')
-  const item = document.createElement('li')
-  item.innerText = `${exercicio.nome} (${exercicio.descricao})`
-  lista.appendChild(item)
+async function carregar_exercicios(){
+  console.log('Carregando da API....');
+  const response = await fetch(API_URL);
+  const exercicios = await response.json();
+  for (exercicio of exercicios){
+    adicionar_exercicio_na_lista(exercicio);
+  }
 }
 
-const btn_cadastrar = document.getElementById('btn-cadastrar')
-
-btn_cadastrar.onclick = salvarClick
-
-
-
-// salvarClick()
-main()
+function adicionar_exercicio_na_lista(exercicio){
+  const lst_exercicios = document.getElementById('lista-exercicio');
+  const item = document.createElement('li');
+  item.innerText = exercicio.nome;
+  lst_exercicios.appendChild(item);
+}
